@@ -22,9 +22,7 @@ var addNote = (title, body) =>{
         title,
         body
     };
-
     var duplicateNotes = notes.filter((note) => note.title === title);
-
     if(duplicateNotes.length ===0){
         notes.push(note);
         saveNotes(notes);
@@ -37,24 +35,30 @@ var getAll = () => {
 };
 
 var getNote = (title) => {
-    console.log('Getting notes',title);
+    var note = fetchNotes();
+    var filteredNotes = note.filter((note)=>note.title === title);
+    return filteredNotes[0];
 };
 
 var removeNote = (title) => {
-    //fetch notes
     var notes = fetchNotes();
-    //fillter notes, remove the one with title of argument
     var filteredNotes = notes.filter((note) => note.title !== title);
-    //save
     saveNotes(filteredNotes);
     return notes.length !== filteredNotes.length;
+};
+
+var logNote = (note) => {
+    console.log('--');
+    console.log(`Title: ${note.title}`);
+    console.log(`body: ${note.body}`);
 };
 
 module.exports ={
     addNote,
     getAll,
     getNote,
-    removeNote
+    removeNote,
+    logNote
 };
 
 
