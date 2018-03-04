@@ -1,7 +1,25 @@
 const request = require('request');
+const yargs = require('yargs');
+
+const argv = yargs
+    .option({
+    a:{
+        demand: true,
+        alias: 'address',
+        describe: 'Address to fetch weather for',
+        string: true
+    }
+})
+.help()
+.alias('help','h')
+.argv;
+
+//console.log(argv);
+var encodeAddress = encodeURIComponent(argv.address);
+//console.log(encodeAddress);
 
 request({
-    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+CA&key=AIzaSyDYQoPjyO-5fuW9V7wwLeUsIdXbdGOV4YY',
+    url: `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddress}&key=AIzaSyDYQoPjyO-5fuW9V7wwLeUsIdXbdGOV4YY`,
     json: true
 },(error, response, body) => {
   //  console.log(JSON.stringify(response,undefined,2));
